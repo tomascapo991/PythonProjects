@@ -16,7 +16,6 @@ Menu="""
             [escribe uno de los comandos]
 
                     * Explorar
-                    * Herreria
                     * Salir
 
                     @Tomber991
@@ -127,6 +126,10 @@ def main():
         if msg=="Explorar":
             jugador.Atacando=True
             Enemigo=Spawn_Enemigo()
+
+        if msg=="Salir":
+            print("!!! GRACIAS POR JUGAR <3 !!!")
+            break
 
         while jugador.Atacando:
             Turno=jugador.nombre
