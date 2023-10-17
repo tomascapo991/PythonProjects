@@ -55,14 +55,32 @@ class Enemigo_Class:
         self.defensa = defensa
         self.nvl = nvl
         self.exp = exp
+class Murcielago(Enemigo_Class):
+      def __init__(self, hp, ataque, defensa, nvl, exp):
+        super().__init__(self, hp, ataque, defensa, nvl, exp)
+        def Especial_mismo (): #Efectos hacia sí mismo
+          self.hp += self.hp/4
+          print ("Murcielago regeneró puntos de vida")
+        def Especial_contra (jd): #Efecto contra el jugador
+          jd.hp -= jd.hp/8
+          print ("El muercielago te ha dado un mordisco")
 
 class Esqueleto(Enemigo_Class):
     def __init__(self, hp, ataque, defensa, nvl, exp, escudo):
         super().__init__(hp, ataque, defensa, nvl, exp)
         self.escudo = escudo
         self.nombre = "Esqueleto"
-        print(" ! ESQUELETO ha aparecidó !")
+        print(" ! ESQUELETO ha aparecidó ! ")
+    def Especial_mismo ():
+      self.ataque += 1
+      print ("Esqueleto aumento su ataque en 1")
+      pass
+    def Especial_contra (jd):
+      jd.hp -= self.ataque
+      print ("Esqueleto ha hecho un ataque doblo")
+      pass
 
+  
     def Salir(self):
         print("El esquelo está bailando antes de morir :´)")
         print("...")
@@ -78,8 +96,17 @@ class Slime(Enemigo_Class):
         super().__init__(hp, ataque, defensa, nvl, exp)
         self.nombre = "Slime"
         print(" ! SLIME ha aparecidó !")
-
-    def Salir(self):
+    
+  def Especial_mismo ():
+    self.defensa += self.ataque/8
+    print ("Slime aumento su defensa")
+    print (f" ~ {self.defensa}")
+      pass
+    def Especial_contra (jd):
+      print (f"Slime acaricia a {jd.nombre}")
+      pass
+   
+def Salir(self):
         print("~ El Slime está saltando :D")
         time.sleep(3)
         print("El slime cayó")
@@ -180,6 +207,14 @@ exp: {jugador.exp}
                 if Enemigo.hp > 0:
                     print("El enemigo está atacando")
                     Enemigo.ATK(jugador)
+                    print (f"{jugador.nombre}: {jugador.hp}")
+                    print (f"{Enemigo.nombre}:{Enemigo.hp}")
+
+                    dado=random.randint (0,16)
+                    if dado>=8:
+                      Enemigo.Especial_mismo ()
+                    if dado==16:
+                      Enemigo.Especial_contra (jugador)
                 else:
                     if Juego_Config["MSG_DIE"]:
                         Enemigo.Salir()
